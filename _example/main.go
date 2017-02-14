@@ -7,7 +7,7 @@ import (
 	"github.com/kasari/rate"
 )
 
-const TryCount = 20000
+const TryCount = 10000
 
 func main() {
 	data := []rate.RateValue{
