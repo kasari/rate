@@ -50,7 +50,7 @@ func (r *Rate) Add(rate float64, value interface{}) error {
 	return nil
 }
 
-func (r *Rate) Gene() interface{} {
+func (r *Rate) Generate() interface{} {
 	if r.RandFunc == nil {
 		rand.Seed(time.Now().UnixNano())
 		r.RandFunc = rand.Float64

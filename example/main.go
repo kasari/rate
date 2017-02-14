@@ -29,7 +29,7 @@ func main() {
 
 	countMap := make(map[interface{}]int)
 	for i := 0; i < TryCount; i++ {
-		v := r.Gene()
+		v := r.Generate()
 		countMap[v]++
 	}
 
