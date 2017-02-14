@@ -3,7 +3,6 @@ package rate
 import (
 	"fmt"
 	"math/rand"
-	"time"
 )
 
 type RateValue struct {
@@ -52,7 +51,6 @@ func (r *Rate) Add(rate float64, value interface{}) error {
 
 func (r *Rate) Generate() interface{} {
 	if r.RandFunc == nil {
-		rand.Seed(time.Now().UnixNano())
 		r.RandFunc = rand.Float64
 	}
 
