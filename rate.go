@@ -1,7 +1,6 @@
 package rate
 
 import (
-	"fmt"
 	"math/rand"
 )
 
@@ -10,43 +9,19 @@ type RateValue struct {
 	Value interface{}
 }
 
-type Option struct {
-	NoMaxRate bool
-}
-
 type Rate struct {
-	Option
-	MaxRate      float64
-	RateValues   []RateValue
-	DefaultValue interface{}
-	RandFunc     func() float64 // return number in [0.0,1.0)
+	MaxRate    float64
+	RateValues []RateValue
+	RandFunc   func() float64 // return number in [0.0,1.0)
 }
 
 func NewRate() *Rate {
-	return NewRateWithOption(Option{})
+	return &Rate{}
 }
 
-func NewRateWithOption(o Option) *Rate {
-	return &Rate{Option: o}
-}
-
-func (r *Rate) Add(rate float64, value interface{}) error {
-	if r.Option.NoMaxRate {
-		r.MaxRate += rate
-	}
-
-	var totalRate float64
-	for _, rv := range r.RateValues {
-		totalRate += rv.Rate
-	}
-
-	if totalRate+rate > r.MaxRate {
-		return fmt.Errorf("error exceed MaxRate, current:%f MaxRate:%f", totalRate+rate, r.MaxRate)
-	}
-
+func (r *Rate) Add(rate float64, value interface{}) {
+	r.MaxRate += rate
 	r.RateValues = append(r.RateValues, RateValue{rate, value})
-
-	return nil
 }
 
 func (r *Rate) Generate() interface{} {
@@ -64,5 +39,5 @@ func (r *Rate) Generate() interface{} {
 		}
 	}
 
-	return r.DefaultValue
+	return nil // unreachable code
 }
